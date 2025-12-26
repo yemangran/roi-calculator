@@ -1,15 +1,16 @@
 <template>
-  <div class="mt-6 flex w-full flex-col space-y-8 sm:mt-12 px-4 sm:px-6 md:space-x-10 lg:px-8">
-    <div class="shadow-md rounded-lg mx-auto w-full">
-      <div class="flex justify-end mb-6 space-x-4">
+  <div class="panel table-shell">
+    <div class="flex flex-wrap items-center justify-between gap-4 px-6 py-5">
+      <div class="flex flex-wrap items-center gap-3">
         <div class="relative">
           <button
             type="button"
-            class="z-10 px-4 py-2 font-medium text-center text-white bg-medium-blue border-medium-blue rounded-lg space-x-2"
-            @click="kd.visible = !kd.visible"
+            class="btn-secondary text-sm"
+            ref="kdButton"
+            @click="toggleKdPanel"
           >
-            <div v-if="kd.values.length" class="flex">
-              <span class="mr-2">KD: {{ kd.values[0] }}-{{ kd.values[1] }}%</span>
+            <div v-if="kd.values.length" class="flex items-center gap-2">
+              <span>KD: {{ kd.values[0] }}-{{ kd.values[1] }}%</span>
               <img
                 v-if="kd.values.length"
                 src="~/assets/icons/close.svg"
@@ -17,162 +18,154 @@
                 @click.stop="updateKd([])"
               />
             </div>
-            <div v-else class="flex">
-              <span class="text-grey mr-6">KD %</span>
+            <div v-else class="flex items-center gap-2">
+              <span class="text-[color:var(--muted)]">KD %</span>
               <img src="~/assets/icons/drogdown.svg" width="12" />
             </div>
           </button>
           <div
             v-if="kd.visible"
-            class="absolute top-full left-0 mt-2 bg-medium-blue rounded-lg shadow-lg py-2 z-20 w-full"
+            class="panel panel-strong panel-float top-full left-0 z-20 mt-2 w-56 rounded-2xl p-3"
+            ref="kdPanel"
           >
             <div
               v-for="(item, index) in kd.selections"
               :key="index"
-              class="flex justify-center px-4 py-2"
+              class="flex justify-between px-3 py-2 text-sm text-[color:var(--muted)]"
               @click="updateKd(item)"
             >
-              <span class="text-grey cursor-pointer">{{ item[0] }}-{{ item[1] }}%</span>
+              <span class="cursor-pointer">{{ item[0] }}-{{ item[1] }}%</span>
             </div>
 
-            <div class="border-t border-grey m-2"></div>
+            <div class="my-2 h-px w-full bg-[color:var(--line)]"></div>
 
-            <div class="px-2 py-1.5 space-y-2">
-              <span class="text-white">定制范围</span>
+            <div class="space-y-2">
+              <span class="text-xs uppercase tracking-[0.2em] text-[color:var(--muted)]">
+                Custom
+              </span>
               <input
                 v-model="kd.min"
                 type="number"
-                class="w-full rounded-lg bg-dark-medium-blue px-4 py-2 text-sm text-white focus:outline-none"
-                placeholder="从"
+                class="field"
+                placeholder="From"
               />
               <input
                 v-model="kd.max"
                 type="number"
-                class="w-full rounded-lg bg-dark-medium-blue px-4 py-2 text-sm text-white focus:outline-none"
-                placeholder="到"
+                class="field"
+                placeholder="To"
               />
-              <button
-                class="w-full py-1.5 items-center justify-center rounded-lg bg-orange text-sm font-medium text-white shadow-button-primary transition-all duration-100 hover:bg-orangeHover active:bg-orange"
-                @click="updateKd([kd.min, kd.max])"
-              >
-                应用
+              <button class="btn-primary w-full text-sm" @click="updateKd([kd.min, kd.max])">
+                Apply
               </button>
             </div>
           </div>
         </div>
 
-        <div class="flex relative">
+        <div class="relative">
           <button
             type="button"
-            class="z-10 px-4 py-2 font-medium text-center text-white bg-medium-blue border-medium-blue rounded-lg space-x-2"
-            @click="volume.visible = !volume.visible"
+            class="btn-secondary text-sm"
+            ref="volumeButton"
+            @click="toggleVolumePanel"
           >
-            <div v-if="volume.values.length" class="flex">
-              <span v-if="volume.values[1] === 99999999" class="mr-2">
-                Volume: {{ volume.values[0] | formatNumber }}+
+            <div v-if="volume.values.length" class="flex items-center gap-2">
+              <span v-if="volume.values[1] === 99999999">
+                Volume: {{ formatNumber(volume.values[0]) }}+
               </span>
-              <span v-else class="mr-2">
-                Volume: {{ volume.values[0] | formatNumber }}-{{ volume.values[1] | formatNumber }}
-                &nbsp;
+              <span v-else>
+                Volume: {{ formatNumber(volume.values[0]) }}-{{ formatNumber(volume.values[1]) }}
               </span>
               <img src="~/assets/icons/close.svg" width="14" @click.stop="updateVolume([])" />
             </div>
 
-            <div v-else class="flex">
-              <span class="text-grey mr-14">Volume</span>
+            <div v-else class="flex items-center gap-2">
+              <span class="text-[color:var(--muted)]">Volume</span>
               <img src="~/assets/icons/drogdown.svg" width="12" />
             </div>
           </button>
           <div
             v-if="volume.visible"
-            class="absolute top-full left-0 mt-2 bg-medium-blue rounded-lg shadow-lg py-2 z-20 w-full"
+            class="panel panel-strong panel-float top-full left-0 z-20 mt-2 w-64 rounded-2xl p-3"
+            ref="volumePanel"
           >
             <div
               v-for="(item, index) in volume.selections"
               :key="index"
-              class="flex px-4 py-2"
+              class="flex px-3 py-2 text-sm text-[color:var(--muted)]"
               @click="updateVolume(item)"
             >
-              <span v-if="item[1] === 99999999" class="text-grey cursor-pointer">
-                {{ item[0] | formatNumber }}+
+              <span v-if="item[1] === 99999999" class="cursor-pointer">
+                {{ formatNumber(item[0]) }}+
               </span>
-              <span v-else class="text-grey cursor-pointer">
-                {{ item[0] | formatNumber }}-{{ item[1] | formatNumber }}
+              <span v-else class="cursor-pointer">
+                {{ formatNumber(item[0]) }}-{{ formatNumber(item[1]) }}
               </span>
             </div>
 
-            <div class="border-t border-grey m-2"></div>
+            <div class="my-2 h-px w-full bg-[color:var(--line)]"></div>
 
-            <div class="px-2 py-1.5 space-y-2">
-              <span class="text-white">定制范围</span>
+            <div class="space-y-2">
+              <span class="text-xs uppercase tracking-[0.2em] text-[color:var(--muted)]">
+                Custom
+              </span>
               <input
                 v-model="volume.min"
                 type="number"
-                class="w-full rounded-lg bg-dark-medium-blue px-4 py-2 text-sm text-white focus:outline-none"
-                placeholder="从"
+                class="field"
+                placeholder="From"
               />
               <input
                 v-model="volume.max"
                 type="number"
-                class="w-full rounded-lg bg-dark-medium-blue px-4 py-2 text-sm text-white focus:outline-none"
-                placeholder="到"
+                class="field"
+                placeholder="To"
               />
               <button
-                class="w-full py-1.5 items-center justify-center rounded-lg bg-orange text-sm font-medium text-white shadow-button-primary transition-all duration-100 hover:bg-orangeHover active:bg-orange"
+                class="btn-primary w-full text-sm"
                 @click="updateVolume([volume.min, volume.max])"
               >
-                应用
+                Apply
               </button>
             </div>
           </div>
         </div>
-
-        <a
-          type="button"
-          class="flex w-full min-w-max flex-row items-center justify-center space-x-2 rounded-lg bg-medium-blue py-2 px-3 text-sm font-semibold text-white shadow-button-secondary transition-all duration-100 hover:bg-medium-blueHover active:bg-medium-blue sm:w-fit sm:px-5 sm:text-base cursor-pointer"
-          @click="exportProcessedData"
-        >
-          <span>Export Excel</span>
-        </a>
       </div>
-      <table class="min-w-full bg-medium-blue rounded-lg overflow-hidden">
+
+      <button class="btn-primary text-sm" @click="exportProcessedData">Export Excel</button>
+    </div>
+
+    <div class="table-clip">
+      <div class="overflow-x-auto">
+        <table>
         <thead>
           <tr>
-            <th class="py-4 px-4 text-medium bg-dark-medium-blue text-white text-left">Keyword</th>
-            <th class="py-4 px-8 text-medium bg-dark-medium-blue text-white text-center">Volume</th>
-            <th class="py-4 px-8 text-medium bg-dark-medium-blue text-white text-center">KD</th>
-            <th class="py-4 px-8 text-medium bg-dark-medium-blue text-white text-center">CPC</th>
-            <th class="py-4 px-8 text-medium bg-dark-medium-blue text-white text-center">
-              优化回报率
-            </th>
+            <th class="text-left">Keyword</th>
+            <th class="text-center">Volume</th>
+            <th class="text-center">KD</th>
+            <th class="text-center">CPC</th>
+            <th class="text-center">ROI</th>
           </tr>
         </thead>
         <tbody>
           <tr
             v-for="(item, index) in processedArr"
             :key="index"
-            :class="{ 'bg-dark-medium-blue': index % 2 === 1 }"
+            :class="{ 'bg-[color:var(--surface-strong)]': index % 2 === 1 }"
           >
-            <td
-              class="py-4 px-4 text-medium text-origin text-left break-words whitespace-normal max-w-xs overflow-auto"
-            >
+            <td class="text-left">
               <a class="underline" :href="item.url" target="_blank">{{ item.keyword }}</a>
             </td>
-            <td class="py-4 px-8 text-medium text-white text-center">
-              {{ item.volume }}
-            </td>
-            <td class="py-4 px-8 text-medium text-white text-center">
-              {{ item.kd }}
-            </td>
-            <td class="py-4 px-8 text-medium text-white text-center">
-              {{ item.cpc }}
-            </td>
-            <td class="py-4 px-8 text-medium text-orange text-center font-bold">
+            <td class="text-center font-mono">{{ item.volume }}</td>
+            <td class="text-center font-mono">{{ item.kd }}</td>
+            <td class="text-center font-mono">{{ item.cpc }}</td>
+            <td class="text-center font-mono text-[color:var(--accent)]">
               {{ item.roi }}
             </td>
           </tr>
         </tbody>
-      </table>
+        </table>
+      </div>
     </div>
   </div>
 </template>
@@ -182,6 +175,14 @@ import * as XLSX from 'xlsx'
 import { saveAs } from 'file-saver'
 
 export default {
+  mounted() {
+    document.addEventListener('click', this.handleClickOutside)
+  },
+
+  beforeUnmount() {
+    document.removeEventListener('click', this.handleClickOutside)
+  },
+
   data() {
     return {
       originalArr: [],
@@ -220,27 +221,61 @@ export default {
   },
 
   methods: {
+    handleClickOutside(event) {
+      const target = event.target
+      const kdPanel = this.$refs.kdPanel
+      const kdButton = this.$refs.kdButton
+      const volumePanel = this.$refs.volumePanel
+      const volumeButton = this.$refs.volumeButton
+
+      const clickedKd =
+        (kdPanel && kdPanel.contains(target)) || (kdButton && kdButton.contains(target))
+      const clickedVolume =
+        (volumePanel && volumePanel.contains(target)) ||
+        (volumeButton && volumeButton.contains(target))
+
+      if (!clickedKd) this.kd.visible = false
+      if (!clickedVolume) this.volume.visible = false
+    },
+
+    toggleKdPanel() {
+      this.kd.visible = !this.kd.visible
+      if (this.kd.visible) this.volume.visible = false
+    },
+
+    toggleVolumePanel() {
+      this.volume.visible = !this.volume.visible
+      if (this.volume.visible) this.kd.visible = false
+    },
+
     processData(jsonData) {
       this.processedArr = []
+      this.originalArr = []
 
       jsonData.forEach((item) => {
-        if (item['Keyword Difficulty'] !== 0) {
-          item.roi = (item.Volume * item['CPC (USD)']) / item['Keyword Difficulty']
-        }
+        const volume = this.parseNumber(item.Volume)
+        const kd = this.parseNumber(item['Keyword Difficulty'])
+        const cpc = this.parseNumber(item['CPC (USD)'])
+        const keyword = item.Keyword
 
-        if (item.roi > 0) {
+        const hasValidRoi = kd > 0 && volume >= 0 && cpc >= 0
+        const roiValue = hasValidRoi ? (volume * cpc) / kd : 0
+        const roiDisplay = hasValidRoi ? roiValue.toFixed(2) : '-'
+
+        if (keyword) {
           this.originalArr.push({
-            keyword: item.Keyword,
-            volume: item.Volume,
-            kd: item['Keyword Difficulty'],
-            cpc: item['CPC (USD)'],
-            roi: item.roi.toFixed(2),
-            url: 'https://www.google.com/search?q=' + item.Keyword
+            keyword,
+            volume: Number.isFinite(volume) ? volume : 0,
+            kd: Number.isFinite(kd) ? kd : 0,
+            cpc: Number.isFinite(cpc) ? cpc : 0,
+            roi: roiDisplay,
+            roiValue,
+            url: 'https://www.google.com/search?q=' + keyword
           })
         }
       })
 
-      this.originalArr.sort((a, b) => b.roi - a.roi)
+      this.originalArr.sort((a, b) => b.roiValue - a.roiValue)
 
       this.filterOriginalArr()
     },
@@ -295,31 +330,35 @@ export default {
     },
 
     exportProcessedData() {
-      // 创建一个新的工作簿对象
       const wb = XLSX.utils.book_new()
-
-      // 将处理后的数据转换为一个工作表对象
       const ws = XLSX.utils.json_to_sheet(this.processedArr)
-
-      // 将工作表对象添加到工作簿中
       XLSX.utils.book_append_sheet(wb, ws, 'Processed Data')
-
-      // 将工作簿对象写入一个二进制字符串
       const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' })
 
-      // 使用 file-saver 库保存文件
       saveAs(
         new Blob([this.s2ab(wbout)], { type: 'application/octet-stream' }),
         'processed-data.xlsx'
       )
     },
 
-    // 定义一个将二进制字符串转换为数组缓冲区的函数
     s2ab(s) {
       const buf = new ArrayBuffer(s.length)
       const view = new Uint8Array(buf)
       for (let i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xff
       return buf
+    },
+
+    formatNumber(value) {
+      if (value === null || value === undefined || value === '') return '0'
+      return parseInt(value).toLocaleString('en-US')
+    },
+
+    parseNumber(value) {
+      if (value === null || value === undefined || value === '') return 0
+      if (typeof value === 'number') return value
+      const normalized = String(value).replace(/,/g, '').trim()
+      const parsed = Number(normalized)
+      return Number.isFinite(parsed) ? parsed : 0
     }
   }
 }

@@ -1,52 +1,65 @@
 <template>
-  <div id="main" class="flex h-full min-h-screen w-full flex-col bg-dark-blue font-rubik">
-    <main class="flex-grow">
-      <div class="sm:mt24 mt-16 flex flex-col items-center justify-center px-4 text-white">
-        <div class="flex w-full max-w-7xl flex-col items-center justify-center">
-          <div class="flex flex-col items-center justify-center">
-            <div class="flex w-full flex-col items-center justify-center space-y-2">
-              <h1
-                class="flex flex-row items-center justify-center space-x-2 text-center text-3xl font-bold text-white"
-              >
-                <span class="text-orange">Keywords&nbsp;</span>ROI Calculator
-              </h1>
-              <h2
-                data-screenshot="false"
-                class="pb-10 text-center font-normal text-grey sm:pb-16 sm:text-lg"
-              >
-                Import Semrush Excel to Generate Keywords ROI Table.
-              </h2>
-            </div>
-          </div>
+  <section class="space-y-12">
+    <div class="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+      <div class="space-y-6">
+        <div class="badge reveal" style="--d: 0.05s">Realtime ROI signal</div>
+        <h1
+          class="reveal font-display text-4xl leading-tight sm:text-5xl lg:text-6xl"
+          style="--d: 0.1s"
+        >
+          Decode keyword potential with a clean, local pipeline.
+        </h1>
+        <p class="reveal max-w-xl text-base text-[color:var(--muted)] sm:text-lg" style="--d: 0.16s">
+          Upload a Semrush export and let the calculator surface ROI-ranked keywords instantly. No
+          network calls. No cloud upload. Pure on-device analysis.
+        </p>
+        <div class="reveal flex flex-col gap-4 sm:flex-row" style="--d: 0.22s">
           <button
-            class="mb-5 flex w-full min-w-max flex-row items-center justify-center space-x-2 rounded-lg bg-orange py-3 px-5 text-base font-medium text-white shadow-button-primary transition-all duration-100 hover:bg-orangeHover active:bg-orange sm:w-fit disabled:opacity-50 disabled:cursor-not-allowed"
+            class="btn-primary w-full disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
             :disabled="btnDisabled"
             @click="triggerFileInput"
           >
-            Import Semrush Excel &nbsp; &nbsp;
-            <svg
-              width="15"
-              height="15"
-              viewBox="0 0 15 15"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M12.1714 3.983L2.12989 14.0245L0.480225 12.3748L10.5206 2.33333H1.67139V0H14.5047V12.8333H12.1714V3.983Z"
-                fill="#FFFBF7"
-              ></path>
-            </svg>
+            Import Semrush Excel
           </button>
-          <p class="font-normal text-grey">
-            * The content uploaded is processed solely on your local device.
-          </p>
-          <input ref="fileInput" type="file" class="hidden" @change="handleFileUpload" />
+          <div class="panel flex items-center gap-3 rounded-full px-5 py-3 text-sm">
+            <span class="font-mono text-[color:var(--accent)]">v4</span>
+            <span class="text-[color:var(--muted)]">Nuxt modern stack</span>
+          </div>
+        </div>
+        <p class="reveal text-xs uppercase tracking-[0.28em] text-[color:var(--muted)]" style="--d: 0.28s">
+          Processed locally on this device
+        </p>
+        <input ref="fileInput" type="file" class="hidden" @change="handleFileUpload" />
+      </div>
 
-          <BaseTable ref="baseTable" />
+      <div class="panel reveal rounded-3xl p-6" style="--d: 0.2s">
+        <div class="panel-strong rounded-2xl p-6">
+          <p class="font-display text-lg">Signal Engine</p>
+          <p class="mt-2 text-sm text-[color:var(--muted)]">
+            A concise scoring layer that balances volume, CPC, and difficulty.
+          </p>
+          <div class="mt-6 grid gap-4">
+            <div class="flex items-center justify-between text-sm">
+              <span class="text-[color:var(--muted)]">Noise filter</span>
+              <span class="font-mono text-[color:var(--accent)]">Adaptive</span>
+            </div>
+            <div class="flex items-center justify-between text-sm">
+              <span class="text-[color:var(--muted)]">Sorting</span>
+              <span class="font-mono text-[color:var(--accent)]">ROI desc</span>
+            </div>
+            <div class="flex items-center justify-between text-sm">
+              <span class="text-[color:var(--muted)]">Exports</span>
+              <span class="font-mono text-[color:var(--accent)]">.xlsx</span>
+            </div>
+          </div>
         </div>
       </div>
-    </main>
-  </div>
+    </div>
+
+    <div class="reveal" style="--d: 0.3s">
+      <BaseTable ref="baseTable" />
+    </div>
+  </section>
 </template>
 
 <script>

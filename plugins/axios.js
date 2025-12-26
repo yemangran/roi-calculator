@@ -1,5 +1,13 @@
-export default function ({ $axios }) {
-  $axios.onRequest(config => {
-    console.log('Making request to ' + config.url)
+export default defineNuxtPlugin(() => {
+  const api = $fetch.create({
+    onRequest({ request }) {
+      console.log('Making request to ' + request)
+    }
   })
-}
+
+  return {
+    provide: {
+      api
+    }
+  }
+})

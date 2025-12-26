@@ -1,8 +1,20 @@
 module.exports = {
-  content: ["*.{html,js}"],
+  content: [
+    './components/**/*.{vue,js}',
+    './layouts/**/*.vue',
+    './pages/**/*.vue',
+    './plugins/**/*.{js,ts}',
+    './app.vue',
+    './nuxt.config.{js,ts}'
+  ],
 
   theme: {
     extend: {
+      fontFamily: {
+        display: ['Oxanium', 'sans-serif'],
+        body: ['Lexend', 'sans-serif'],
+        mono: ['IBM Plex Mono', 'monospace']
+      },
       colors: {
         'dark-blue': '#12151e',  // 这是 dark-blue 的基础色值，你可以根据实际情况进行调整。
       },
