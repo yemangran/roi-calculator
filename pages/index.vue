@@ -69,8 +69,6 @@
 </template>
 
 <script>
-import * as XLSX from 'xlsx'
-
 export default {
   data() {
     return {
@@ -83,11 +81,14 @@ export default {
       this.$refs.fileInput.click()
     },
 
-    handleFileUpload(event) {
+    async handleFileUpload(event) {
       const file = event.target.files[0]
 
       if (file) {
         this.btnDisabled = true
+
+        // 动态导入 xlsx（仅在客户端）
+        const XLSX = await import('xlsx')
 
         const reader = new FileReader()
         reader.onload = (e) => {

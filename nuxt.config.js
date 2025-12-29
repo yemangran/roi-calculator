@@ -35,5 +35,11 @@ export default defineNuxtConfig({
     ]
   },
 
+  vite: {
+    optimizeDeps: {
+      exclude: ['xlsx']
+    }
+  },
+
   build: {}
 })

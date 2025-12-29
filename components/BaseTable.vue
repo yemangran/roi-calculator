@@ -173,7 +173,6 @@
 </template>
 
 <script>
-import * as XLSX from 'xlsx'
 import { saveAs } from 'file-saver'
 
 export default {
@@ -331,7 +330,10 @@ export default {
       })
     },
 
-    exportProcessedData() {
+    async exportProcessedData() {
+      // 动态导入 xlsx（仅在客户端）
+      const XLSX = await import('xlsx')
+
       const wb = XLSX.utils.book_new()
       const ws = XLSX.utils.json_to_sheet(this.processedArr)
       XLSX.utils.book_append_sheet(wb, ws, 'Processed Data')
