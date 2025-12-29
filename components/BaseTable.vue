@@ -173,8 +173,6 @@
 </template>
 
 <script>
-import { saveAs } from 'file-saver'
-
 export default {
   mounted() {
     document.addEventListener('click', this.handleClickOutside)
@@ -331,15 +329,16 @@ export default {
     },
 
     async exportProcessedData() {
-      // 动态导入 xlsx（仅在客户端）
+      // 动态导入 xlsx 和 file-saver（仅在客户端）
       const XLSX = await import('xlsx')
+      const FileSaver = await import('file-saver')
 
       const wb = XLSX.utils.book_new()
       const ws = XLSX.utils.json_to_sheet(this.processedArr)
       XLSX.utils.book_append_sheet(wb, ws, 'Processed Data')
       const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' })
 
-      saveAs(
+      FileSaver.saveAs(
         new Blob([this.s2ab(wbout)], { type: 'application/octet-stream' }),
         'processed-data.xlsx'
       )
