@@ -19,7 +19,7 @@
               />
             </div>
             <div v-else class="flex items-center gap-2">
-              <span class="text-[color:var(--muted)]">KD %</span>
+              <span class="text-[color:var(--muted)]">{{ $t('filters.kd') }}</span>
               <img src="~/assets/icons/drogdown.svg" width="12" />
             </div>
           </button>
@@ -41,22 +41,22 @@
 
             <div class="space-y-2">
               <span class="text-xs uppercase tracking-[0.2em] text-[color:var(--muted)]">
-                Custom
+                {{ $t('filters.custom') }}
               </span>
               <input
                 v-model="kd.min"
                 type="number"
                 class="field"
-                placeholder="From"
+                :placeholder="$t('filters.from')"
               />
               <input
                 v-model="kd.max"
                 type="number"
                 class="field"
-                placeholder="To"
+                :placeholder="$t('filters.to')"
               />
               <button class="btn-primary w-full text-sm" @click="updateKd([kd.min, kd.max])">
-                Apply
+                {{ $t('filters.apply') }}
               </button>
             </div>
           </div>
@@ -80,7 +80,7 @@
             </div>
 
             <div v-else class="flex items-center gap-2">
-              <span class="text-[color:var(--muted)]">Volume</span>
+              <span class="text-[color:var(--muted)]">{{ $t('filters.volume') }}</span>
               <img src="~/assets/icons/drogdown.svg" width="12" />
             </div>
           </button>
@@ -107,32 +107,34 @@
 
             <div class="space-y-2">
               <span class="text-xs uppercase tracking-[0.2em] text-[color:var(--muted)]">
-                Custom
+                {{ $t('filters.custom') }}
               </span>
               <input
                 v-model="volume.min"
                 type="number"
                 class="field"
-                placeholder="From"
+                :placeholder="$t('filters.from')"
               />
               <input
                 v-model="volume.max"
                 type="number"
                 class="field"
-                placeholder="To"
+                :placeholder="$t('filters.to')"
               />
               <button
                 class="btn-primary w-full text-sm"
                 @click="updateVolume([volume.min, volume.max])"
               >
-                Apply
+                {{ $t('filters.apply') }}
               </button>
             </div>
           </div>
         </div>
       </div>
 
-      <button class="btn-primary text-sm" @click="exportProcessedData">Export Excel</button>
+      <button class="btn-primary text-sm" @click="exportProcessedData">
+        {{ $t('table.export') }}
+      </button>
     </div>
 
     <div class="table-clip">
@@ -140,11 +142,11 @@
         <table>
         <thead>
           <tr>
-            <th class="text-left">Keyword</th>
-            <th class="text-center">Volume</th>
-            <th class="text-center">KD</th>
-            <th class="text-center">CPC</th>
-            <th class="text-center">ROI</th>
+            <th class="text-left">{{ $t('table.keyword') }}</th>
+            <th class="text-center">{{ $t('table.volume') }}</th>
+            <th class="text-center">{{ $t('table.kd') }}</th>
+            <th class="text-center">{{ $t('table.cpc') }}</th>
+            <th class="text-center">{{ $t('table.roi') }}</th>
           </tr>
         </thead>
         <tbody>

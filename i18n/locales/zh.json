@@ -1,0 +1,55 @@
+{
+  "app": {
+    "title": "关键词 ROI 计算器",
+    "description": "导入 Semrush Excel 生成 ROI 表格 | 关键词 ROI 计算器"
+  },
+  "header": {
+    "keywords": "关键词",
+    "roiCalculator": "ROI 计算器",
+    "viewSource": "查看源码"
+  },
+  "theme": {
+    "nightShift": "夜间模式",
+    "daylight": "日间模式",
+    "light": "浅色",
+    "dark": "深色",
+    "switchTo": "切换到{mode}模式"
+  },
+  "hero": {
+    "badge": "实时 ROI 信号",
+    "title": "以本地化的精简流程，解码关键词潜力。",
+    "subtitle": "上传 Semrush 导出文件，立即生成 ROI 排序关键词。无需网络请求，无需云端上传，全程本地处理。",
+    "cta": "导入 Semrush Excel",
+    "version": "Nuxt 现代技术栈",
+    "signalTitle": "信号引擎",
+    "signalSubtitle": "用更清晰的评分逻辑平衡搜索量、CPC 与难度。",
+    "signalNoise": "噪声过滤",
+    "signalNoiseValue": "自适应",
+    "signalSorting": "排序方式",
+    "signalSortingValue": "ROI 降序",
+    "signalExports": "导出格式",
+    "signalExportsValue": ".xlsx",
+    "localOnly": "仅在本机完成处理"
+  },
+  "table": {
+    "keyword": "关键词",
+    "volume": "搜索量",
+    "kd": "KD",
+    "cpc": "CPC",
+    "roi": "ROI",
+    "export": "导出 Excel"
+  },
+  "filters": {
+    "kd": "KD %",
+    "volume": "搜索量",
+    "custom": "自定义",
+    "from": "从",
+    "to": "到",
+    "apply": "应用"
+  },
+  "footer": {
+    "localNote": "本地处理，文件不会离开你的设备。",
+    "build": "构建 2025",
+    "company": "Kunsect LLC"
+  }
+}

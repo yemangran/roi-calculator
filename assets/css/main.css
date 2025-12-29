@@ -219,18 +219,207 @@ body {
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.12em;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(12px);
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 20px rgba(45, 230, 198, 0.15);
+  transform: translateY(-1px);
+}
+
+.theme-toggle:active {
+  transform: translateY(0);
 }
 
 .theme-toggle span {
   font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  transition: color 0.2s ease;
+}
+
+.theme-toggle:hover span {
+  color: var(--text);
+}
+
+.locale-select {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  padding: 6px 12px;
+  background: var(--surface);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.locale-select select {
+  appearance: none;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  padding-right: 18px;
+  cursor: pointer;
+}
+
+.locale-select select:focus {
+  outline: none;
+}
+
+.locale-select::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  margin-left: 6px;
+  border-right: 2px solid var(--muted);
+  border-bottom: 2px solid var(--muted);
+  transform: rotate(45deg);
+}
+
+.locale-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  padding: 8px 14px;
+  color: var(--text);
+  background: var(--surface);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(12px);
+}
+
+.locale-toggle:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 20px rgba(45, 230, 198, 0.15);
+  transform: translateY(-1px);
+}
+
+.locale-toggle:active {
+  transform: translateY(0);
+}
+
+.locale-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  box-shadow: 0 0 10px var(--glow);
+  transition: transform 0.3s ease;
+}
+
+.locale-toggle:hover .locale-dot {
+  transform: scale(1.15);
+}
+
+.locale-code {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+  color: var(--accent);
+  font-size: 11px;
+}
+
+.locale-divider {
+  width: 1px;
+  height: 14px;
+  background: var(--line);
+}
+
+.locale-name {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  transition: color 0.2s ease;
+}
+
+.locale-toggle:hover .locale-name {
+  color: var(--text);
+}
+
+.source-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  padding: 8px 14px;
+  color: var(--text);
+  background: var(--surface);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(12px);
+  text-decoration: none;
+}
+
+.source-link:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 20px rgba(45, 230, 198, 0.15);
+  transform: translateY(-1px);
+}
+
+.source-link:active {
+  transform: translateY(0);
+}
+
+.source-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  box-shadow: 0 0 10px var(--glow);
+  transition: transform 0.3s ease;
+}
+
+.source-link:hover .source-dot {
+  transform: scale(1.15);
+}
+
+.source-icon {
+  width: 14px;
+  height: 14px;
+  color: var(--accent);
+  transition: transform 0.3s ease;
+}
+
+.source-link:hover .source-icon {
+  transform: rotate(360deg);
+}
+
+.source-text {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  transition: color 0.2s ease;
+}
+
+.source-link:hover .source-text {
+  color: var(--text);
 }
 
 .toggle-dot {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   border-radius: 999px;
-  background: var(--accent);
-  box-shadow: 0 0 12px var(--glow);
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  box-shadow: 0 0 10px var(--glow);
+  transition: transform 0.3s ease;
+}
+
+.theme-toggle:hover .toggle-dot {
+  transform: scale(1.15);
 }
 
 .table-shell {

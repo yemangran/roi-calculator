@@ -1,0 +1,55 @@
+{
+  "app": {
+    "title": "Keywords ROI Calculator",
+    "description": "Import Semrush Excel to Generate ROI Table. | Keywords ROI Calculator"
+  },
+  "header": {
+    "keywords": "Keywords",
+    "roiCalculator": "ROI Calculator",
+    "viewSource": "View Source"
+  },
+  "theme": {
+    "nightShift": "Night Shift",
+    "daylight": "Daylight",
+    "light": "light",
+    "dark": "dark",
+    "switchTo": "Switch to {mode} mode"
+  },
+  "hero": {
+    "badge": "Realtime ROI signal",
+    "title": "Decode keyword potential with a clean, local pipeline.",
+    "subtitle": "Upload a Semrush export and let the calculator surface ROI-ranked keywords instantly. No network calls. No cloud upload. Pure on-device analysis.",
+    "cta": "Import Semrush Excel",
+    "version": "Nuxt modern stack",
+    "signalTitle": "Signal Engine",
+    "signalSubtitle": "A concise scoring layer that balances volume, CPC, and difficulty.",
+    "signalNoise": "Noise filter",
+    "signalNoiseValue": "Adaptive",
+    "signalSorting": "Sorting",
+    "signalSortingValue": "ROI desc",
+    "signalExports": "Exports",
+    "signalExportsValue": ".xlsx",
+    "localOnly": "Processed locally on this device"
+  },
+  "table": {
+    "keyword": "Keyword",
+    "volume": "Volume",
+    "kd": "KD",
+    "cpc": "CPC",
+    "roi": "ROI",
+    "export": "Export Excel"
+  },
+  "filters": {
+    "kd": "KD %",
+    "volume": "Volume",
+    "custom": "Custom",
+    "from": "From",
+    "to": "To",
+    "apply": "Apply"
+  },
+  "footer": {
+    "localNote": "Local processing only. No file leaves your device.",
+    "build": "Build 2025",
+    "company": "Kunsect LLC"
+  }
+}

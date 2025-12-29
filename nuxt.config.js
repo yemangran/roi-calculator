@@ -20,8 +20,20 @@ export default defineNuxtConfig({
   components: true,
 
   modules: [
-    '@nuxtjs/tailwindcss'
+    '@nuxtjs/tailwindcss',
+    '@nuxtjs/i18n'
   ],
+
+  i18n: {
+    strategy: 'prefix_except_default',
+    defaultLocale: 'en',
+    lazy: true,
+    langDir: 'locales',
+    locales: [
+      { code: 'en', name: 'English', file: 'en.json' },
+      { code: 'zh', name: '简体中文', file: 'zh.json' }
+    ]
+  },
 
   build: {}
 })
